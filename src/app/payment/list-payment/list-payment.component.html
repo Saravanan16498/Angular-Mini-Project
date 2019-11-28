@@ -1,0 +1,43 @@
+<div class="container" style="width: inherit;">
+    <h2>Payment List</h2>
+    <div class="searchDiv">
+        <input type="text" class="inputBox" placeholder="Search">
+        <input type="button" value="Search" >
+    </div><br>
+
+        <h3 *ngIf="paymentSer.deleteMsg " style="color: red;">Deleted Successfully...</h3>
+        <h3 *ngIf="paymentSer.updateMsg " style="color: green;">Updated Successfully...</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Username</th>
+                <th>Card Number</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let paymentList of paymentSer.paymentData; index as i; odd as o; even as e"
+                [ngStyle]="{'background-color': o ? '#bef4f1':'#f7bbbb'}">
+                <td>{{i+1}}</td>
+                <td>{{paymentList.uname | titlecase}}</td>
+                <td>{{paymentList.cdNumber}}</td>
+                <td>{{paymentList.amt | currency:"INR"}}</td>
+                <td><input type="button" value="Edit" class="btn btn-primary" (click)="doEdit(i)">&nbsp;<input
+                        type="button" value="Delete" class="btn btn-danger"
+                        (click)="paymentSer.doDeleteUser(i)"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="editDiv" *ngIf="paymentSer.isUpdateEnable">
+        <h2>Update Details</h2><br>
+        <label for="cardNumber">Card Number</label><input type="text" class="form-control" [(ngModel)]="cardNumber" readonly><br>
+        <label for="username">Username</label><input type="text" class="form-control" [(ngModel)]="username"><br>
+        <label for="payment">Amount</label><input type="text" class="form-control" [(ngModel)]="amount"><br>
+        <input type="button" class="btn btn-primary"
+            [disabled]="username.length >=4 && amount > 100 ? paymentSer.isEnable: !paymentSer.isEnable"
+            value="Update" (click)="doUpdate()">
+    </div>
+</div> 

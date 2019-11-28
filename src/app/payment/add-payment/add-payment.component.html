@@ -1,0 +1,12 @@
+<div class="col-sm-4" style="margin-left: 1%;">
+    <h2>Add Payment</h2>
+    <label for="username">Username</label><input type="text" class="form-control" [(ngModel)]="username"><br>
+    <label for="payment">Amount</label><input type="text" class="form-control" [(ngModel)]="amount"><br>
+    <label for="cardNumber">Card Number</label><input type="text" class="form-control" [(ngModel)]="cardNumber"><br>
+    <input type="button" class="btn btn-primary"
+        [disabled]="username.length >=4 && amount > 100 && cardNumber >= 10000 ? paymentSer.isAddBtnEnable: !paymentSer.isAddBtnEnable"
+        value="Add Payment" (click)="paymentSer.addPayment(username, amount, cardNumber)">
+</div>
+<div class="col-sm-7">
+    <app-list-payment></app-list-payment>
+</div>
